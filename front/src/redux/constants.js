@@ -1,0 +1,7 @@
+export const RECIVE_FILMS = "RECIVE_FILMS";
+export const RECIVE_FILM = "RECIVE_FILM";
+
+export const USER_LOGGIN = "USER_LOGGIN";
+
+export const RECIVE_FAVORITES = "RECIVE_FAVORITES";
+export const RECENT_FAVORITE = "RECENT_FAVORITE";
