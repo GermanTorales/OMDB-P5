@@ -2,7 +2,19 @@ const S = require("sequelize");
 const db = require("../config/db");
 const crypto = require("crypto");
 
-class User extends S.Model {}
+class User extends S.Model {
+  static getSalt(){
+    return user.salt = crypto.randomBytes(20).toString("hex");
+  }
+
+  static hashPassword(password, salt){
+    return crypto.createHmac("sha1", salt).update(password).digest("hex");
+  }
+
+  validPassword(password){
+    return this.password === User.hashPassword(password, this.salt)
+  }
+}
 
 User.init(
   {
@@ -18,22 +30,5 @@ User.init(
   },
   { sequelize: db, modelName: "user" }
 );
-
-User.addHook("beforeCreate", user => {
-  user.salt = crypto.randomBytes(20).toString("hex");
-  user.password = crypto
-    .createHmac("sha1", user.salt)
-    .update(user.password)
-    .digest("hex");
-});
-
-User.prototype.validPassword = function(password) {
-  const match = crypto
-    .createHmac("sha1", this.salt)
-    .update(password)
-    .digest("hex");
-  if (match == this.password) return true;
-  return false;
-};
 
 module.exports = User;

@@ -1,23 +1,9 @@
-const router = require("express").Router();
-const { User, Favorites } = require("../models/index");
+const router = require("express").Router()
 const { isAuthenticated } = require("../helpers/authUser");
+const favController = require('../controllers/favControllers')
 
-router.get("/favorites", (req, res) => {
-  User.findByPk(req.user.id)
-    .then(user => {
-      Favorites.findAll({ where: { userId: user.id } }).then(favorites => {
-        res.status(200).send(favorites);
-      });
-    })
-    .catch(err => console.log(err));
-});
+router.get("/favorites", favController.getFavoritesByUser);
 
-router.post("/add-favorite", isAuthenticated, (req, res) => {
-  User.findByPk(req.user.id).then(user => {
-    Favorites.create({ ...req.body, userId: user.get("id") }).then(favorite => {
-      res.status(200).send(favorite);
-    });
-  });
-});
+router.post("/add-favorite", isAuthenticated, favController.addFavorite);
 
 module.exports = router;

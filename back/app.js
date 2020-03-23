@@ -1,3 +1,4 @@
+require('dotenv').config()
 const express = require("express");
 const path = require("path");
 const passport = require("passport");
@@ -11,7 +12,7 @@ const app = express();
 require("./config/passport");
 
 //Config
-app.set("port", process.env.PORT || 3000);
+const port = process.env.PORT || 3000
 app.use(express.static(__dirname + "/public"));
 
 //Middlewares
@@ -21,7 +22,7 @@ app.use(morgan("dev"));
 app.use(cookieParser());
 app.use(
   session({
-    secret: "mysecret",
+    secret: process.env.SESSION_SECRET,
     resave: true,
     saveUninitialized: true
   })
@@ -37,9 +38,10 @@ app.get("/*", (req, res) => {
 });
 
 //Server and DB
-Sequelize.sync({ force: false }).then(() => {
-  console.log("DB is connected on POSTGRES");
-  app.listen(app.get("port"), () => {
-    console.log("Server on port: ", app.get("port"));
+Sequelize.sync({ force: false })
+  .then(() => {
+    console.log("DB is connected");
+    app.listen(port, () => {
+      console.log(`Server on port ${port}`);
+    })
   });
-});
