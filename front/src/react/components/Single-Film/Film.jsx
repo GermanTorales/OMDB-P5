@@ -1,7 +1,7 @@
 import React from "react";
-import Poster from "./Poster";
-import { POSTER_NOT_FOUND } from "../utils/constansFiles";
-import { ButtonFavorite } from "./ButtonFavorite";
+import Poster from "../Commons/Poster";
+import { POSTER_NOT_FOUND } from "../../../utils/constansFiles";
+import { ButtonFavorite } from "../Commons/ButtonFavorite";
 
 export default ({ filmSelected }) => (
   <div className="card mb-3">

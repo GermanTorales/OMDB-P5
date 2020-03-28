@@ -15,14 +15,21 @@ export const fetchFilms = title => dispatch => {
   return axios
     .get(`https://www.omdbapi.com/?apikey=f480926&s=${title}`)
     .then(res => res.data)
-    .then(films => dispatch(reciveFilms(films, title)));
+    .then(films => {
+      dispatch(reciveFilms(films, title));
+      return films;
+    });
 };
 
-export const fetchFilmsPagX = (title, page) => dispatch =>
-  axios
+export const fetchFilmsPagX = (title, page) => dispatch => {
+  return axios
     .get(`https://www.omdbapi.com/?apikey=f480926&s=${title}&page=${page}`)
     .then(res => res.data)
-    .then(films => dispatch(reciveFilms(films, title)));
+    .then(films => {
+      dispatch(reciveFilms(films, title));
+      return films;
+    });
+};
 
 export const fetchFilm = omdbId => dispatch =>
   axios

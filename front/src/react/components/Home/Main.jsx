@@ -1,21 +1,20 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Route, Switch, Redirect } from "react-router-dom";
-import NavbarContainer from "../containers/NavbarContainer";
-import FilmsContainer from "../containers/FilmsContainer";
-import FilmContainer from "../containers/FilmContainer";
-import PagePrincipal from "../components/PagePrincipal";
-import ProfileContainer from "../containers/ProfileContainer";
-import SignUp from "../containers/SignUp";
-import SingIn from "../containers/SignIn";
+import NavbarContainer from "../Navbar/NavbarContainer";
+import FilmsContainer from "../All-Films/FilmsContainer";
+import FilmContainer from "../Single-Film/FilmContainer";
+import PagePrincipal from "../PagePrincipal/PagePrincipalContainer";
+import ProfileContainer from "../User/ProfileContainer";
+import SignUp from "../SignUp/SignUp";
+import SingIn from "../SignIn/SignIn";
 
 const Main = ({ user }) => (
-  <div id="main" className="">
+  <div className="w-100">
     <NavbarContainer user={user} />
     <Switch>
       <Route path="/" exact component={PagePrincipal} />
-      <Route path="/search" exact component={FilmsContainer} />
-      <Route path="/search/:page" exact component={FilmsContainer} />
+      <Route path="/search/:title" exact component={FilmsContainer} />
       <Route path="/movie/:imdbId" exact component={FilmContainer} />
       <Route path="/signup" exact component={SignUp} />
       <Route path="/signin" exact component={SingIn} />

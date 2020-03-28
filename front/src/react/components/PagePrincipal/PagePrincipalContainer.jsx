@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { connect } from "react-redux";
-import { fetchFilms } from "../redux/actions/Films";
+import { fetchFilms } from "../../../redux/actions/Films";
 import { withRouter } from "react-router";
-import Navbar from "../components/Navbar";
 
-const NavbarContainer = ({ fetchFilms, user, history }) => {
+import PagePrincipal from "./PagePrincipal";
+
+const PagePrincipalContainer = ({ fetchFilms, history }) => {
   const [searchInput, setSearchInput] = useState("");
 
   function handlerInput(e) {
@@ -14,16 +15,12 @@ const NavbarContainer = ({ fetchFilms, user, history }) => {
   function onSubmitForm(e) {
     e.preventDefault();
     fetchFilms(e.target[0].value).then(() => {
-      history.push("/search");
+      history.push(`/search/${searchInput}`);
     });
   }
 
   return (
-    <Navbar
-      user={user}
-      handlerInput={handlerInput}
-      onSubmitForm={onSubmitForm}
-    />
+    <PagePrincipal handlerInput={handlerInput} onSubmitForm={onSubmitForm} />
   );
 };
 
@@ -33,4 +30,6 @@ const mapDispatchToProps = (dispatch, ownProps) => {
   };
 };
 
-export default withRouter(connect(null, mapDispatchToProps)(NavbarContainer));
+export default withRouter(
+  connect(null, mapDispatchToProps)(PagePrincipalContainer)
+);

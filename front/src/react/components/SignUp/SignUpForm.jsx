@@ -1,6 +1,6 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
-import AlertInputError from "./AlertInputError";
+import AlertInputError from "../Commons/AlertInputError";
 
 export default ({
   onSubmitForm,

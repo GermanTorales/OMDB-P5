@@ -1,8 +1,8 @@
 import React from "react";
-import Film from "../components/Film";
+import Film from "./Film";
 import { connect } from "react-redux";
-import { fetchFilm } from "../redux/actions/Films";
-import { setFavorite } from "../redux/actions/Favorites";
+import { fetchFilm } from "../../../redux/actions/Films";
+import { setFavorite } from "../../../redux/actions/Favorites";
 
 class FilmContainer extends React.Component {
   UNSAFE_componentWillMount() {

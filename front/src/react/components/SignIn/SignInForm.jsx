@@ -1,5 +1,5 @@
 import React from "react";
-import AlertInputError from "./AlertInputError";
+import AlertInputError from "../Commons/AlertInputError";
 
 export default ({
   onSubmitForm,

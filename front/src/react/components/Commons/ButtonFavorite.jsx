@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { setFavorite } from "../redux/actions/Favorites";
+import { setFavorite } from "../../../redux/actions/Favorites";
 
 const ButtonFavorite = ({ addFav, imdbId }) => (
   <div>

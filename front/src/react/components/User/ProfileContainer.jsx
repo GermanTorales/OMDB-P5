@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import UserProfile from "../components/UserProfile";
-import ErrorCard from "../components/ErrorCard";
-import { FAVORITES_NOT_FOUND } from "../utils/ErrorMessages";
-import { fetchFavorites } from "../redux/actions/Favorites";
+import UserProfile from "./UserProfile";
+import ErrorCard from "../Commons/ErrorCard";
+import { FAVORITES_NOT_FOUND } from "../../../utils/ErrorMessages";
+import { fetchFavorites } from "../../../redux/actions/Favorites";
 
 const ProfileContainer = ({ userFavorites, user, favList }) => {
   useEffect(() => {

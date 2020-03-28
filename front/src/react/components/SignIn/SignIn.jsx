@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router";
 import { connect } from "react-redux";
-import SignInForm from "../components/SignInForm";
-import ErrorCard from "../components/ErrorCard";
-import { loggingUsers } from "../redux/actions/Users";
-import { INVALID_DATA } from "../utils/ErrorMessages";
+import SignInForm from "./SignInForm";
+import ErrorCard from "../Commons/ErrorCard";
+import { loggingUsers } from "../../../redux/actions/Users";
+import { INVALID_DATA } from "../../../utils/ErrorMessages";
 
 const SignIn = ({ loggingUsers, history }) => {
   const [emailError, setEmailError] = useState(false);

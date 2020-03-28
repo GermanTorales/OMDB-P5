@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import ButtonsUser from "./ButtonsUser";
-import ButtonUserProfile from "./ButtonUserProfile";
+import ButtonsUser from "./inside/ButtonsUser";
+import ButtonUserProfile from "./inside/ButtonUserProfile";
 
-export default ({ onSubmitForm, handlerInput, user }) => {
+export default ({ user }) => {
   return (
     <div>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -23,16 +23,6 @@ export default ({ onSubmitForm, handlerInput, user }) => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="col-md-8 mx-auto">
-          <form onSubmit={onSubmitForm}>
-            <input
-              type="text"
-              className="form-control"
-              placeholder="What movie are you looking for?"
-              onChange={handlerInput}
-            />
-          </form>
-        </div>
         {user.userId ? <ButtonUserProfile user={user} /> : <ButtonsUser />}
       </nav>
     </div>

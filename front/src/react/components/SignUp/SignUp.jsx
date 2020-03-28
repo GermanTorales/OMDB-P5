@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import SignUpForm from "../components/SignUpForm";
+import SignUpForm from "./SignUpForm";
 import { connect } from "react-redux";
-import { createUser } from "../redux/actions/Users";
+import { createUser } from "../../../redux/actions/Users";
 import { withRouter } from "react-router";
-import ErrorCard from "../components/ErrorCard";
-import { EMAIL_IN_USE } from "../utils/ErrorMessages";
+import ErrorCard from "../Commons/ErrorCard";
+import { EMAIL_IN_USE } from "../../../utils/ErrorMessages";
 
 const SignUp = ({ createUser, history }) => {
   const [fNameError, setfNameError] = useState(false);
