@@ -18,8 +18,8 @@ export default ({ onSubmitForm, handlerInput }) => (
       />
       <HeaderText>
         <BackgoundText>
-          <Title class="card-title">Welcome to OMDB!</Title>
-          <SubTitle class="lead">The Open Movie Database.</SubTitle>
+          <Title className="card-title">Welcome to OMDB!</Title>
+          <SubTitle className="lead">The Open Movie Database.</SubTitle>
           <br />
           <div className="col-md-6 mx-auto">
             <form onSubmit={onSubmitForm}>

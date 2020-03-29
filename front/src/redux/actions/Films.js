@@ -31,8 +31,12 @@ export const fetchFilmsPagX = (title, page) => dispatch => {
     });
 };
 
-export const fetchFilm = omdbId => dispatch =>
-  axios
+export const fetchFilm = omdbId => dispatch => {
+  return axios
     .get(`https://www.omdbapi.com/?apikey=f480926&i=${omdbId}`)
     .then(res => res.data)
-    .then(film => dispatch(reciveFilm(film, film.Title)));
+    .then(film => {
+      dispatch(reciveFilm(film, film.Title));
+      return film;
+    });
+};

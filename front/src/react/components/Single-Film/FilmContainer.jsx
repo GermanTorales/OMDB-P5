@@ -1,34 +1,29 @@
-import React from "react";
-import Film from "./Film";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchFilm } from "../../../redux/actions/Films";
-import { setFavorite } from "../../../redux/actions/Favorites";
+import Film from "./Film";
+import Loading from "../Commons/Loading";
 
-class FilmContainer extends React.Component {
-  UNSAFE_componentWillMount() {
-    this.props.fetchFilm(this.props.match.params.imdbId);
-  }
-  render() {
-    const { film } = this.props;
-    return (
-      <div className="container pt-4">
-        <Film filmSelected={film} />
-      </div>
-    );
-  }
-}
+const FilmContainer = ({ match, fetchFilm }) => {
+  const [film, setFilm] = useState({ Response: "False" });
 
-const mapStateToProps = (state, ownProps) => {
-  return {
-    film: state.films.filmSelected.film
-  };
+  useEffect(() => {
+    fetchFilm(match.params.imdbId).then(film => {
+      setFilm(film);
+    });
+  }, [setFilm]);
+
+  return (
+    <div>
+      {film.Response == "False" ? <Loading /> : <Film filmSelected={film} />}
+    </div>
+  );
 };
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    fetchFilm: omdbId => dispatch(fetchFilm(omdbId)),
-    addFav: omdbId => dispatch(setFavorite(omdbId))
+    fetchFilm: omdbId => dispatch(fetchFilm(omdbId))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(FilmContainer);
+export default connect(null, mapDispatchToProps)(FilmContainer);

@@ -15,8 +15,10 @@ const PaginationContainer = ({ page, pages, onChangePage }) => {
     } else if (page >= 10) {
       pagination(page, page + 9);
     }
+  } else if (pages - 10 > 0) {
+    pagination(Math.floor(pages) - 10, pages);
   } else {
-    pagination(page, pages);
+    pagination(1, pages);
   }
 
   return (

@@ -43735,10 +43735,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var FilmsContainer = function FilmsContainer(_ref) {
   var user = _ref.user,
       match = _ref.match,
-      fetchFilms = _ref.fetchFilms,
       fetchFilmsPagX = _ref.fetchFilmsPagX;
 
-  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    Response: "False"
+  }),
       _useState2 = _slicedToArray(_useState, 2),
       films = _useState2[0],
       setFilms = _useState2[1];
@@ -43748,7 +43749,7 @@ var FilmsContainer = function FilmsContainer(_ref) {
       totalResults = _useState4[0],
       setTotalResults = _useState4[1];
 
-  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(0),
+  var _useState5 = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])(1),
       _useState6 = _slicedToArray(_useState5, 2),
       numberPages = _useState6[0],
       setNumberPages = _useState6[1];
@@ -43759,29 +43760,35 @@ var FilmsContainer = function FilmsContainer(_ref) {
       setPage = _useState8[1];
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
-    fetchFilmsPagX(match.params.title, page).then(function (films) {
-      setFilms(films.Search);
-      setTotalResults(films.totalResults);
-      setNumberPages(films.totalResults / 10);
-    });
-  }, []);
+    if (films.Response == "False") {
+      fetchFilmsPagX(match.params.title, page).then(function (films) {
+        setFilms(films);
+        setTotalResults(films.totalResults);
+        setNumberPages(films.totalResults / 10);
+      });
+    } else {
+      return;
+    }
+  }, [setFilms]);
 
   var onChangePage = function onChangePage(pageSelected) {
-    fetchFilmsPagX(match.params.title, pageSelected).then(function (films) {
-      setPage(pageSelected);
-      setFilms(films.Search);
-      setTotalResults(films.totalResults);
-      setNumberPages(films.totalResults / 10);
-    });
+    if (pageSelected > 0 && pageSelected <= numberPages) {
+      fetchFilmsPagX(match.params.title, pageSelected).then(function (films) {
+        setPage(pageSelected);
+        setFilms(films);
+        setTotalResults(films.totalResults);
+        setNumberPages(films.totalResults / 10);
+      });
+    }
   };
 
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, films ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FilmsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
-    films: films,
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, films.Response == "True" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_FilmsList__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    films: films.Search,
     user: user
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Pagination_PaginationContainer__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    page: page,
     pages: numberPages,
-    onChangePage: onChangePage,
-    page: page
+    onChangePage: onChangePage
   })) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_Loading__WEBPACK_IMPORTED_MODULE_5__["default"], null));
 };
 
@@ -44001,10 +44008,10 @@ __webpack_require__.r(__webpack_exports__);
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-4 mx-auto"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    "class": "alert alert-danger",
+    className: "alert alert-danger",
     role: "alert"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h4", {
-    "class": "alert-heading"
+    className: "alert-heading"
   }, msg.title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", null, msg.content), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("hr", null)));
 });
 
@@ -44024,12 +44031,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /* harmony default export */ __webpack_exports__["default"] = (function () {
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    "class": "d-flex justify-content-center"
+    className: "d-flex justify-content-center",
+    style: {
+      paddingTop: "100px"
+    }
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    "class": "spinner-border",
+    className: "spinner-border",
     role: "status"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
-    "class": "sr-only"
+    className: "sr-only"
   }, "Loading...")));
 });
 
@@ -44341,9 +44351,9 @@ __webpack_require__.r(__webpack_exports__);
     src: "https://www.runnymedehotel.com/wp-content/uploads/2019/12/Fizz-and-Films_popcorn-1200x800.jpg",
     alt: "..."
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__["HeaderText"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__["BackgoundText"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__["Title"], {
-    "class": "card-title"
+    className: "card-title"
   }, "Welcome to OMDB!"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_1__["SubTitle"], {
-    "class": "lead"
+    className: "lead"
   }, "The Open Movie Database."), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "col-md-6 mx-auto"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("form", {
@@ -44544,7 +44554,7 @@ __webpack_require__.r(__webpack_exports__);
       onChangePage = _ref.onChangePage,
       pageLinks = _ref.pageLinks;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container"
+    className: "container mt-5"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
     className: "row"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
@@ -44554,7 +44564,7 @@ __webpack_require__.r(__webpack_exports__);
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("ul", {
     className: "pagination justify-content-center"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    "class": "page-item "
+    className: "page-item "
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_ButtonPagination__WEBPACK_IMPORTED_MODULE_1__["default"], {
     name: "Previous",
     number: page - 1,
@@ -44565,11 +44575,11 @@ __webpack_require__.r(__webpack_exports__);
       key: index
     }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_ButtonPagination__WEBPACK_IMPORTED_MODULE_1__["default"], {
       name: number,
-      number: number - 1,
+      number: number,
       onChangePage: onChangePage
     }));
   }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("li", {
-    "class": "page-item"
+    className: "page-item"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_ButtonPagination__WEBPACK_IMPORTED_MODULE_1__["default"], {
     name: "Next",
     number: page + 1,
@@ -44612,8 +44622,10 @@ var PaginationContainer = function PaginationContainer(_ref) {
     } else if (page >= 10) {
       pagination(page, page + 9);
     }
+  } else if (pages - 10 > 0) {
+    pagination(Math.floor(pages) - 10, pages);
   } else {
-    pagination(page, pages);
+    pagination(1, pages);
   }
 
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Pagination__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -45052,53 +45064,42 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _Commons_Poster__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../Commons/Poster */ "./src/react/components/Commons/Poster.jsx");
-/* harmony import */ var _utils_constansFiles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../utils/constansFiles */ "./src/utils/constansFiles.js");
-/* harmony import */ var _Commons_ButtonFavorite__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../Commons/ButtonFavorite */ "./src/react/components/Commons/ButtonFavorite.jsx");
+/* harmony import */ var _Inside_Tr__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Inside/Tr */ "./src/react/components/Single-Film/Inside/Tr.jsx");
+/* harmony import */ var _utils_constansFiles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../utils/constansFiles */ "./src/utils/constansFiles.js");
+/* harmony import */ var _styles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./styles */ "./src/react/components/Single-Film/styles.js");
+
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
   var filmSelected = _ref.filmSelected;
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "card mb-3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "row no-gutters"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-4"
-  }, filmSelected.Poster !== "N/A" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_Poster__WEBPACK_IMPORTED_MODULE_1__["default"], {
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_4__["FilmCardContainer"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_4__["FilmImageContainer"], null, filmSelected.Poster !== "N/A" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_Poster__WEBPACK_IMPORTED_MODULE_1__["default"], {
     poster: filmSelected.Poster
   }) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_Poster__WEBPACK_IMPORTED_MODULE_1__["default"], {
-    poster: _utils_constansFiles__WEBPACK_IMPORTED_MODULE_2__["POSTER_NOT_FOUND"]
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "col-md-8"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "container"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "title"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h2", null, filmSelected.Title, " (", filmSelected.Year, ")"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: "fav"
-  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
+    poster: _utils_constansFiles__WEBPACK_IMPORTED_MODULE_3__["POSTER_NOT_FOUND"]
+  })), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_4__["FilmInfo"], null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_4__["FilmTitle"], null, filmSelected.Title, " (", filmSelected.Year, ")"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_4__["FilmSubInfo"], {
     className: "text-muted"
-  }, filmSelected.Rated, " | ", filmSelected.Runtime, " |", filmSelected.Genre, " | ", filmSelected.Language, " | Imdb Rating-", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
+  }, filmSelected.Rated, " | ", filmSelected.Runtime, " |", filmSelected.Genre, " |", " ", filmSelected.Language, " | Imdb Rating-", react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("span", {
     className: "badge badge-primary"
-  }, filmSelected.imdbRating)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("p", {
-    className: "card-text"
-  }, filmSelected.Plot)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-    className: " d-flex pt-3"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
+  }, filmSelected.imdbRating)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_styles__WEBPACK_IMPORTED_MODULE_4__["FilmPlot"], null, filmSelected.Plot), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
     className: "table table-striped"
-  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    scope: ""
-  }, "Director"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, filmSelected.Director)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    scope: ""
-  }, "Actors"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, filmSelected.Actors)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    scope: ""
-  }, "Awards"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, filmSelected.Production)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    scope: ""
-  }, "Production"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, filmSelected.Production)), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
-    scope: ""
-  }, "Box Office"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, filmSelected.BoxOffice)))))))));
+  }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tbody", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Inside_Tr__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Director",
+    content: filmSelected.Director
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Inside_Tr__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Actors",
+    content: filmSelected.Actors
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Inside_Tr__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Awards",
+    content: filmSelected.Awards
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Inside_Tr__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Production",
+    content: filmSelected.Production
+  }), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Inside_Tr__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    title: "Box Office",
+    content: filmSelected.BoxOffice
+  })))));
 });
 
 /***/ }),
@@ -45114,27 +45115,17 @@ __webpack_require__.r(__webpack_exports__);
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _Film__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Film */ "./src/react/components/Single-Film/Film.jsx");
-/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
-/* harmony import */ var _redux_actions_Films__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../redux/actions/Films */ "./src/redux/actions/Films.js");
-/* harmony import */ var _redux_actions_Favorites__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../redux/actions/Favorites */ "./src/redux/actions/Favorites.js");
-function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+/* harmony import */ var react_redux__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-redux */ "./node_modules/react-redux/es/index.js");
+/* harmony import */ var _redux_actions_Films__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../redux/actions/Films */ "./src/redux/actions/Films.js");
+/* harmony import */ var _Film__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./Film */ "./src/react/components/Single-Film/Film.jsx");
+/* harmony import */ var _Commons_Loading__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Commons/Loading */ "./src/react/components/Commons/Loading.jsx");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
 
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+function _iterableToArrayLimit(arr, i) { if (!(Symbol.iterator in Object(arr) || Object.prototype.toString.call(arr) === "[object Arguments]")) { return; } var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
@@ -45142,55 +45133,146 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
-var FilmContainer =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(FilmContainer, _React$Component);
+var FilmContainer = function FilmContainer(_ref) {
+  var match = _ref.match,
+      fetchFilm = _ref.fetchFilm;
 
-  function FilmContainer() {
-    _classCallCheck(this, FilmContainer);
+  var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])({
+    Response: "False"
+  }),
+      _useState2 = _slicedToArray(_useState, 2),
+      film = _useState2[0],
+      setFilm = _useState2[1];
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FilmContainer).apply(this, arguments));
-  }
-
-  _createClass(FilmContainer, [{
-    key: "UNSAFE_componentWillMount",
-    value: function UNSAFE_componentWillMount() {
-      this.props.fetchFilm(this.props.match.params.imdbId);
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var film = this.props.film;
-      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", {
-        className: "container pt-4"
-      }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Film__WEBPACK_IMPORTED_MODULE_1__["default"], {
-        filmSelected: film
-      }));
-    }
-  }]);
-
-  return FilmContainer;
-}(react__WEBPACK_IMPORTED_MODULE_0___default.a.Component);
-
-var mapStateToProps = function mapStateToProps(state, ownProps) {
-  return {
-    film: state.films.filmSelected.film
-  };
+  Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
+    fetchFilm(match.params.imdbId).then(function (film) {
+      setFilm(film);
+    });
+  }, [setFilm]);
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("div", null, film.Response == "False" ? react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Commons_Loading__WEBPACK_IMPORTED_MODULE_4__["default"], null) : react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(_Film__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    filmSelected: film
+  }));
 };
 
 var mapDispatchToProps = function mapDispatchToProps(dispatch, ownProps) {
   return {
     fetchFilm: function fetchFilm(omdbId) {
-      return dispatch(Object(_redux_actions_Films__WEBPACK_IMPORTED_MODULE_3__["fetchFilm"])(omdbId));
-    },
-    addFav: function addFav(omdbId) {
-      return dispatch(Object(_redux_actions_Favorites__WEBPACK_IMPORTED_MODULE_4__["setFavorite"])(omdbId));
+      return dispatch(Object(_redux_actions_Films__WEBPACK_IMPORTED_MODULE_2__["fetchFilm"])(omdbId));
     }
   };
 };
 
-/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_2__["connect"])(mapStateToProps, mapDispatchToProps)(FilmContainer));
+/* harmony default export */ __webpack_exports__["default"] = (Object(react_redux__WEBPACK_IMPORTED_MODULE_1__["connect"])(null, mapDispatchToProps)(FilmContainer));
+
+/***/ }),
+
+/***/ "./src/react/components/Single-Film/Inside/Tr.jsx":
+/*!********************************************************!*\
+  !*** ./src/react/components/Single-Film/Inside/Tr.jsx ***!
+  \********************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+/* harmony default export */ __webpack_exports__["default"] = (function (_ref) {
+  var title = _ref.title,
+      content = _ref.content;
+  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
+    scope: ""
+  }, title), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("td", null, content));
+});
+
+/***/ }),
+
+/***/ "./src/react/components/Single-Film/styles.js":
+/*!****************************************************!*\
+  !*** ./src/react/components/Single-Film/styles.js ***!
+  \****************************************************/
+/*! exports provided: FilmCardContainer, FilmImageContainer, FilmInfo, FilmTitle, FilmSubInfo, FilmPlot */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmCardContainer", function() { return FilmCardContainer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmImageContainer", function() { return FilmImageContainer; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmInfo", function() { return FilmInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmTitle", function() { return FilmTitle; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmSubInfo", function() { return FilmSubInfo; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "FilmPlot", function() { return FilmPlot; });
+/* harmony import */ var styled_components__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! styled-components */ "./node_modules/styled-components/dist/styled-components.browser.esm.js");
+function _templateObject6() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 20px;\n  color: #000;\n"]);
+
+  _templateObject6 = function _templateObject6() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject5() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 18px;\n  color: #444;\n"]);
+
+  _templateObject5 = function _templateObject5() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject4() {
+  var data = _taggedTemplateLiteral(["\n  font-size: 38px;\n  color: #000;\n  font-weight: 800;\n"]);
+
+  _templateObject4 = function _templateObject4() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject3() {
+  var data = _taggedTemplateLiteral(["\n  width: 60%;\n  height: 100%;\n"]);
+
+  _templateObject3 = function _templateObject3() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject2() {
+  var data = _taggedTemplateLiteral(["\n  width: 35%;\n  height: 100%;\n"]);
+
+  _templateObject2 = function _templateObject2() {
+    return data;
+  };
+
+  return data;
+}
+
+function _templateObject() {
+  var data = _taggedTemplateLiteral(["\n  width: 90%;\n  height: 100vh;\n  margin: 0 auto;\n  padding-top: 100px;\n  display: flex;\n  justify-content: space-between;\n  flex-direction: row;\n"]);
+
+  _templateObject = function _templateObject() {
+    return data;
+  };
+
+  return data;
+}
+
+function _taggedTemplateLiteral(strings, raw) { if (!raw) { raw = strings.slice(0); } return Object.freeze(Object.defineProperties(strings, { raw: { value: Object.freeze(raw) } })); }
+
+
+var FilmCardContainer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject());
+var FilmImageContainer = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject2());
+var FilmInfo = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].div(_templateObject3());
+var FilmTitle = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].h1(_templateObject4());
+var FilmSubInfo = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].p(_templateObject5());
+var FilmPlot = styled_components__WEBPACK_IMPORTED_MODULE_0__["default"].h2(_templateObject6());
 
 /***/ }),
 
@@ -45273,7 +45355,7 @@ __webpack_require__.r(__webpack_exports__);
   var favorites = _ref.favorites,
       user = _ref.user;
   return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("table", {
-    "class": "table table-dark"
+    className: "table table-dark"
   }, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("thead", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
     scope: "col"
   }, "#"), react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("th", {
@@ -45412,7 +45494,8 @@ var fetchFilm = function fetchFilm(omdbId) {
     return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("https://www.omdbapi.com/?apikey=f480926&i=".concat(omdbId)).then(function (res) {
       return res.data;
     }).then(function (film) {
-      return dispatch(reciveFilm(film, film.Title));
+      dispatch(reciveFilm(film, film.Title));
+      return film;
     });
   };
 };

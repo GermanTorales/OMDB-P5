@@ -2,7 +2,7 @@ import React from "react";
 
 export default ({ favorites, user }) => {
   return (
-    <table class="table table-dark">
+    <table className="table table-dark">
       <thead>
         <tr>
           <th scope="col">#</th>

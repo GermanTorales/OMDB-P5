@@ -2,7 +2,7 @@ import React from "react";
 
 export default ({ number, name, onChangePage }) => (
   <button
-    className="btn btn-outline-primary"
+    className={`btn btn-outline-primary`}
     onClick={e => {
       e.preventDefault();
       onChangePage(number);
