@@ -8,22 +8,15 @@ const setUser = user => {
   };
 };
 
-export const createUser = function(firstName, lastName, email, password) {
-  return function(dispatch) {
-    return Axios.post("/auth/signup", {
-      firstName: firstName,
-      lastName: lastName,
-      email: email,
-      password: password
-    }).then(res => {
-      if (res.data && res.data.name == "SequelizeUniqueConstraintError") {
-        return true;
-      } else {
-        dispatch(setUser(res.data));
-        return false;
-      }
-    });
-  };
+export const createUser = data => dispatch => {
+  return Axios.post("/auth/signup", { data }).then(res => {
+    if (res.data && res.data.name == "SequelizeUniqueConstraintError") {
+      return true;
+    } else {
+      dispatch(setUser(res.data));
+      return false;
+    }
+  });
 };
 
 export const loggingUsers = function(email, password) {

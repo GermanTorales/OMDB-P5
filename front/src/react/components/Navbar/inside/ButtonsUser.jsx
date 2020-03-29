@@ -1,13 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { Button, NotUser } from "../style";
 
 export default () => (
-  <div className="">
-    <Link to="/signup">
-      <button className="btn  btn-outline-primary mr-2">Sign Up</button>
+  <NotUser>
+    <Link style={{ textDecoration: "none" }} to="/signup">
+      <Button>Sign Up</Button>
     </Link>
-    <Link to="/signin">
-      <button className="btn  btn-outline-primary">Sign In</button>
+    <Link style={{ textDecoration: "none" }} to="/signin">
+      <Button>Sign In</Button>
     </Link>
-  </div>
+  </NotUser>
 );

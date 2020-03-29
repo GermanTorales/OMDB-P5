@@ -5,6 +5,7 @@ import { createUser } from "../../../redux/actions/Users";
 import { withRouter } from "react-router";
 import ErrorCard from "../Commons/ErrorCard";
 import { EMAIL_IN_USE } from "../../../utils/ErrorMessages";
+import validations from "../../../assets/js/ValidacionesDeInputs";
 
 const SignUp = ({ createUser, history }) => {
   const [fNameError, setfNameError] = useState(false);
@@ -14,57 +15,46 @@ const SignUp = ({ createUser, history }) => {
   const [emailInUse, setEmailInUse] = useState(false);
   const [button, setButton] = useState(true);
 
-  function isValidName(name) {
-    return !/^[A-Z]+$/i.test(name);
-  }
-
-  function isValidEmail(email) {
-    return !/^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i.test(
-      email
-    );
-  }
-
-  function isValidPassword(password) {
-    return !/^(?=(?:.*(\d|[$@._&])){1})(?=(?:.*[A-Z]){1})(?=(?:.*[a-z]){1})\S{4,20}$/.test(
-      password
-    );
-  }
-
-  function handlerInput(e) {
+  const handlerInput = e => {
     switch (e.target.name) {
       case "name": {
-        isValidName(e.target.value)
+        validations.isValidName(e.target.value)
           ? setfNameError(true)
           : setfNameError(false);
+        break;
       }
       case "last": {
-        isValidName(e.target.value)
+        validations.isValidName(e.target.value)
           ? setlNameError(true)
           : setlNameError(false);
+        break;
       }
       case "email": {
-        isValidEmail(e.target.value)
+        validations.isValidEmail(e.target.value)
           ? setEmailError(true)
           : setEmailError(false);
+        break;
       }
       case "password": {
-        isValidPassword(e.target.value)
+        validations.isValidPassword(e.target.value)
           ? setPassError(true)
           : setPassError(false);
+        break;
       }
     }
     !fNameError && !emailError && !passError && !lNameError
       ? setButton(false)
       : setButton(true);
-  }
+  };
 
   const onSubmitForm = e => {
     e.preventDefault();
-    const firstName = e.target[0].value;
-    const lastName = e.target[1].value;
-    const email = e.target[2].value;
-    const password = e.target[3].value;
-    createUser(firstName, lastName, email, password).then(res => {
+    const data = {};
+    data.firstName = e.target[0].value;
+    data.lastName = e.target[1].value;
+    data.email = e.target[2].value;
+    data.password = e.target[3].value;
+    createUser(data).then(res => {
       if (res) {
         setEmailInUse(true);
       } else {
@@ -75,18 +65,16 @@ const SignUp = ({ createUser, history }) => {
   };
 
   return (
-    <div className="container mt-4 pt-4 ">
-      <div className="row bg-light">
-        <SignUpForm
-          onSubmitForm={onSubmitForm}
-          handlerInput={handlerInput}
-          fNameErr={fNameError}
-          lNameErr={lNameError}
-          emailErr={emailError}
-          passErr={passError}
-          button={button}
-        />
-      </div>
+    <div>
+      <SignUpForm
+        onSubmitForm={onSubmitForm}
+        handlerInput={handlerInput}
+        fNameErr={fNameError}
+        lNameErr={lNameError}
+        emailErr={emailError}
+        passErr={passError}
+        button={button}
+      />
       {emailInUse ? <ErrorCard msg={EMAIL_IN_USE} /> : null}
     </div>
   );
@@ -94,8 +82,7 @@ const SignUp = ({ createUser, history }) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createUser: (firstName, lastName, email, password) =>
-      dispatch(createUser(firstName, lastName, email, password))
+    createUser: data => dispatch(createUser(data))
   };
 };
 

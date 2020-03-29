@@ -1,6 +1,8 @@
 import React, { useRef } from "react";
 import { Link } from "react-router-dom";
 import AlertInputError from "../Commons/AlertInputError";
+import msg from "../../../assets/error-msg/errorInputs";
+import styles from "./styles";
 
 export default ({
   onSubmitForm,
@@ -12,69 +14,65 @@ export default ({
   button
 }) => {
   return (
-    <div className="col-md-4 mx-auto p-4">
-      <form onSubmit={onSubmitForm}>
-        <div className="form-group">
-          <label>First Name</label>
-          <input
+    <styles.Container>
+      <styles.Form onSubmit={onSubmitForm}>
+        <styles.Field>
+          <styles.Label>First Name</styles.Label>
+          <styles.Input
             type="text"
             name="name"
-            className="form-control"
-            aria-describedby="name"
-            placeholder="Enter your full name"
-            onChange={handlerInput}
+            placeholder="Enter your first name"
+            onBlur={handlerInput}
           />
-          {fNameErr ? <AlertInputError msg={"First Name invalid"} /> : null}
-        </div>
-        <div className="form-group">
-          <label>Last Name</label>
-          <input
+          {fNameErr ? (
+            <AlertInputError msg={msg.NAME_FORMAT_INCORRECT} />
+          ) : null}
+        </styles.Field>
+        <styles.Field>
+          <styles.Label>Last Name</styles.Label>
+          <styles.Input
             type="text"
             name="last"
-            className="form-control"
-            aria-describedby="name"
-            placeholder="Enter your full name"
-            onChange={handlerInput}
+            placeholder="Enter your last name"
+            onBlur={handlerInput}
           />
-          {lNameErr ? <AlertInputError msg={"Last Name invalid"} /> : null}
-        </div>
-        <div className="form-group">
-          <label>Email address</label>
-          <input
+          {lNameErr ? (
+            <AlertInputError msg={msg.NAME_FORMAT_INCORRECT} />
+          ) : null}
+        </styles.Field>
+        <styles.Field>
+          <styles.Label>Email address</styles.Label>
+          <styles.Input
             type="email"
             name="email"
-            className="form-control"
-            aria-describedby="emailHelp"
             placeholder="Enter email"
-            onChange={handlerInput}
+            onBlur={handlerInput}
           />
           <small id="emailHelp" class="form-text text-muted">
             We'll never share your email with anyone else.
           </small>
-          {emailErr ? <AlertInputError msg={"Email invalid"} /> : null}
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
+          {emailErr ? (
+            <AlertInputError msg={msg.EMAIL_FORMAT_INCORRECT} />
+          ) : null}
+        </styles.Field>
+        <styles.Field>
+          <styles.Label>Password</styles.Label>
+          <styles.Input
             type="password"
             name="password"
-            className="form-control"
             placeholder="Password"
-            onChange={handlerInput}
+            onBlur={handlerInput}
           />
-          {passErr ? <AlertInputError msg={"Password invalid"} /> : null}
-        </div>
-        <div className="from-group">
-          <button
-            disabled={button}
-            type="submit"
-            className="btn btn-outline-primary btn-block"
-          >
-            {" "}
+          {passErr ? (
+            <AlertInputError msg={msg.PASSWORD_FORMAT_INCORRECT} />
+          ) : null}
+        </styles.Field>
+        <styles.Field>
+          <styles.Button disabled={button} type="submit">
             Sign In
-          </button>
-        </div>
-      </form>
-    </div>
+          </styles.Button>
+        </styles.Field>
+      </styles.Form>
+    </styles.Container>
   );
 };

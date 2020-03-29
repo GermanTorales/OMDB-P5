@@ -1,13 +1,8 @@
 import React from "react";
 import Navbar from "./Navbar";
-import { Nav } from "./style";
 
 const NavbarContainer = ({ user }) => {
-  return (
-    <Nav>
-      <Navbar user={user} />
-    </Nav>
-  );
+  return <Navbar user={user} />;
 };
 
 export default NavbarContainer;
