@@ -7,7 +7,7 @@ export const Nav = styled.nav`
   height: 50px;
   display: flex;
   justify-content: space-between;
-  background: #34515eb0;
+  background: #34515e;
 `;
 
 export const Home = styled.div`

@@ -11,9 +11,13 @@ const FilmsContainer = ({ user, match, fetchFilmsPagX }) => {
   const [numberPages, setNumberPages] = useState(1);
   const [page, setPage] = useState(1);
 
+  const ellipsis = (string) => {
+    return string.length > 14 ? string.substring(0, 14) + "..." : string;
+  };
+
   useEffect(() => {
     if (films.Response == "False") {
-      fetchFilmsPagX(match.params.title, page).then(films => {
+      fetchFilmsPagX(match.params.title, page).then((films) => {
         setFilms(films);
         setTotalResults(films.totalResults);
         setNumberPages(films.totalResults / 10);
@@ -23,9 +27,9 @@ const FilmsContainer = ({ user, match, fetchFilmsPagX }) => {
     }
   }, [setFilms]);
 
-  const onChangePage = pageSelected => {
+  const onChangePage = (pageSelected) => {
     if (pageSelected > 0 && pageSelected <= numberPages) {
-      fetchFilmsPagX(match.params.title, pageSelected).then(films => {
+      fetchFilmsPagX(match.params.title, pageSelected).then((films) => {
         setPage(pageSelected);
         setFilms(films);
         setTotalResults(films.totalResults);
@@ -38,7 +42,7 @@ const FilmsContainer = ({ user, match, fetchFilmsPagX }) => {
     <div>
       {films.Response == "True" ? (
         <div>
-          <FilmsList films={films.Search} user={user} />
+          <FilmsList ellipsis={ellipsis} films={films.Search} user={user} />
           <PaginationContainer
             page={page}
             pages={numberPages}
@@ -54,13 +58,13 @@ const FilmsContainer = ({ user, match, fetchFilmsPagX }) => {
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user.user
+    user: state.user.user,
   };
 };
 
 const mapDispathToProps = (dispatch, ownProps) => {
   return {
-    fetchFilmsPagX: (title, page) => dispatch(fetchFilmsPagX(title, page))
+    fetchFilmsPagX: (title, page) => dispatch(fetchFilmsPagX(title, page)),
   };
 };
 

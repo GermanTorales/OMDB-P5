@@ -3,26 +3,30 @@ import { Link } from "react-router-dom";
 import ButtonFavorite from "../Commons/ButtonFavorite";
 import Poster from "../Commons/Poster";
 import { POSTER_NOT_FOUND } from "../../../utils/constansFiles";
-import { Grilla, Tarjetas, Tarjeta } from "./styles.js";
+import styles from "./styles.js";
 
-export default ({ films, user }) => {
+export default ({ films, user, ellipsis }) => {
   return (
-    <Grilla>
-      <Tarjetas>
+    <styles.Grilla>
+      <styles.Tarjetas>
         {films.map((e, index) => {
           return (
-            <Tarjeta key={index}>
-              <Link to={`/movie/${e.imdbID}`}>
-                {e.Poster !== "N/A" ? (
-                  <Poster poster={e.Poster} />
-                ) : (
-                  <Poster poster={POSTER_NOT_FOUND} />
-                )}
+            <styles.Tarjeta key={index}>
+              {e.Poster !== "N/A" ? (
+                <Poster poster={e.Poster} />
+              ) : (
+                <Poster poster={POSTER_NOT_FOUND} />
+              )}
+              <Link
+                style={{ textDecoration: "none" }}
+                to={`/movie/${e.imdbID}`}
+              >
+                <styles.TarjetaTitle>{ellipsis(e.Title)}</styles.TarjetaTitle>
               </Link>
-            </Tarjeta>
+            </styles.Tarjeta>
           );
         })}
-      </Tarjetas>
-    </Grilla>
+      </styles.Tarjetas>
+    </styles.Grilla>
   );
 };

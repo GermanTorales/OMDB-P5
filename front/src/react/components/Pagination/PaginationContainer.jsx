@@ -3,8 +3,10 @@ import Pagination from "./Pagination";
 
 const PaginationContainer = ({ page, pages, onChangePage }) => {
   let pageLinks = [];
+  let selected = "";
   function pagination(primerPag, ultimaPag) {
     for (let i = primerPag; i <= ultimaPag; i++) {
+      selected = page == i ? "disabled" : "";
       pageLinks.push(i);
     }
   }
@@ -22,7 +24,12 @@ const PaginationContainer = ({ page, pages, onChangePage }) => {
   }
 
   return (
-    <Pagination page={page} pageLinks={pageLinks} onChangePage={onChangePage} />
+    <Pagination
+      selected={selected}
+      page={page}
+      pageLinks={pageLinks}
+      onChangePage={onChangePage}
+    />
   );
 };
 

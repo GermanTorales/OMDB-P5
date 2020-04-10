@@ -1,6 +1,12 @@
 import styled from "styled-components";
+const styles = {};
 
-export const FilmCardContainer = styled.div`
+styles.Container = styled.div`
+  width: 90%;
+  margin: 0 auto;
+`;
+
+styles.FilmCardContainer = styled.div`
   width: 90%;
   height: 100vh;
   margin: 0 auto;
@@ -10,28 +16,35 @@ export const FilmCardContainer = styled.div`
   flex-direction: row;
 `;
 
-export const FilmImageContainer = styled.div`
+styles.FilmImageContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 35%;
   height: 100%;
+  background: #708b97b2;
+  border: 1px solid #ccc;
 `;
 
-export const FilmInfo = styled.div`
+styles.FilmInfo = styled.div`
   width: 60%;
   height: 100%;
 `;
 
-export const FilmTitle = styled.h1`
+styles.FilmTitle = styled.h1`
   font-size: 38px;
   color: #000;
   font-weight: 800;
 `;
 
-export const FilmSubInfo = styled.p`
+styles.FilmSubInfo = styled.p`
   font-size: 18px;
   color: #444;
 `;
 
-export const FilmPlot = styled.h2`
+styles.FilmPlot = styled.h2`
   font-size: 20px;
   color: #000;
 `;
+
+export default styles;

@@ -1,7 +1,7 @@
 import React from "react";
-import ButtonPagination from "../Commons/ButtonPagination";
+import ButtonPagination from "./Inside/ButtonPagination";
 
-export default ({ page, onChangePage, pageLinks }) => {
+export default ({ selected, page, onChangePage, pageLinks }) => {
   return (
     <div className="container mt-5">
       <div className="row">
@@ -10,6 +10,8 @@ export default ({ page, onChangePage, pageLinks }) => {
             <ul className="pagination justify-content-center">
               <li className={`page-item `}>
                 <ButtonPagination
+                  width="100px"
+                  heigth="50px"
                   name={"Previous"}
                   number={page - 1}
                   onChangePage={onChangePage}
@@ -18,6 +20,9 @@ export default ({ page, onChangePage, pageLinks }) => {
               {pageLinks.map((number, index) => (
                 <li className="page-item px-1" key={index}>
                   <ButtonPagination
+                    selected={selected}
+                    width="50px"
+                    heigth="50px"
                     name={number}
                     number={number}
                     onChangePage={onChangePage}
@@ -26,6 +31,8 @@ export default ({ page, onChangePage, pageLinks }) => {
               ))}
               <li className={`page-item`}>
                 <ButtonPagination
+                  width="100px"
+                  heigth="50px"
                   name={"Next"}
                   number={page + 1}
                   onChangePage={onChangePage}
