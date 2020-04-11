@@ -1,36 +1,36 @@
 import { RECIVE_FAVORITES, RECENT_FAVORITE } from "../constants";
 import Axios from "axios";
 
-const favorites = moviesFavs => ({
+const favorites = (moviesFavs) => ({
   type: RECIVE_FAVORITES,
-  moviesFavs
+  moviesFavs,
 });
 
-const recentFavorite = recent => ({
+const recentFavorite = (recent) => ({
   type: RECENT_FAVORITE,
-  recent
+  recent,
 });
 
-export const setFavorite = function(omdbId) {
-  return function(dispatch) {
+export const setFavorite = function (omdbId) {
+  return function (dispatch) {
     Axios.post("/user/add-favorite", { movieId: omdbId })
-      .then(res => res.data)
-      .then(recent => {
+      .then((res) => res.data)
+      .then((recent) => {
         dispatch(recentFavorite(recent));
       })
-      .catch(err => console.log(err));
+      .catch((err) => err);
   };
 };
 
-export const fetchFavorites = dispatch => {
+export const fetchFavorites = (dispatch) => {
   Axios.get("/user/favorites")
-    .then(res => res.data)
-    .then(favs => {
+    .then((res) => res.data)
+    .then((favs) => {
       let list = [];
-      favs.forEach(fav => {
+      favs.forEach((fav) => {
         Axios.get(
           `https://www.omdbapi.com/?apikey=f480926&i=${fav.movieId}`
-        ).then(res => list.push(res.data));
+        ).then((res) => list.push(res.data));
       });
       dispatch(favorites(list));
     });

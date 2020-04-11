@@ -1,15 +1,15 @@
 import Axios from "axios";
 import { USER_LOGGIN } from "../constants";
 
-const setUser = user => {
+const setUser = (user) => {
   return {
     type: USER_LOGGIN,
-    user
+    user,
   };
 };
 
-export const createUser = data => dispatch => {
-  return Axios.post("/auth/signup", { data }).then(res => {
+export const createUser = (data) => (dispatch) => {
+  return Axios.post("/auth/signup", { data }).then((res) => {
     if (res.data && res.data.name == "SequelizeUniqueConstraintError") {
       return true;
     } else {
@@ -19,20 +19,19 @@ export const createUser = data => dispatch => {
   });
 };
 
-export const loggingUsers = function(email, password) {
-  return function(dispatch) {
-    return Axios.post("/auth/signin", { email, password })
-      .then(res => {
-        dispatch(setUser(res.data));
-      })
-      .catch(err => err.response);
-  };
+export const loggingUsers = (email, password) => (dispatch) => {
+  return Axios.post("/auth/signin", {
+    email: email,
+    password: password,
+  })
+    .then((res) => {
+      dispatch(setUser(res.data));
+    })
+    .catch((err) => err.response);
 };
 
-export const fetchUser = function() {
-  return function(dispatch) {
-    Axios.get("/session")
-      .then(res => res.data)
-      .then(user => dispatch(setUser(user)));
-  };
+export const fetchUser = () => (dispatch) => {
+  Axios.get("/session")
+    .then((res) => res.data)
+    .then((user) => dispatch(setUser(user)));
 };

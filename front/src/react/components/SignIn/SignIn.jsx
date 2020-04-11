@@ -19,11 +19,13 @@ const SignIn = ({ loggingUsers, history }) => {
         validations.isValidEmail(e.target.value)
           ? setEmailError(true)
           : setEmailError(false);
+        break;
       }
       case "password": {
-        validatios.isValidPassword(e.target.value)
+        validations.isValidPassword(e.target.value)
           ? setPassError(true)
           : setPassError(false);
+        break;
       }
     }
     !emailError && !passError ? setButton(false) : setButton(true);
@@ -31,11 +33,11 @@ const SignIn = ({ loggingUsers, history }) => {
 
   const onSubmitForm = (e) => {
     e.preventDefault();
-    const data = {
-      email: e.target[0].value,
-      password: e.target[1].valuel,
-    };
-    loggingUsers(data).then((res) => {
+
+    let email = e.target[0].value;
+    let password = e.target[1].value;
+
+    loggingUsers(email, password).then((res) => {
       if (res && res.status == 401) {
         setInvalidData(true);
       } else {

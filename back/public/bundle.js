@@ -44868,11 +44868,13 @@ var SignIn = function SignIn(_ref) {
       case "email":
         {
           _assets_js_ValidacionesDeInputs__WEBPACK_IMPORTED_MODULE_7__["default"].isValidEmail(e.target.value) ? setEmailError(true) : setEmailError(false);
+          break;
         }
 
       case "password":
         {
-          validatios.isValidPassword(e.target.value) ? setPassError(true) : setPassError(false);
+          _assets_js_ValidacionesDeInputs__WEBPACK_IMPORTED_MODULE_7__["default"].isValidPassword(e.target.value) ? setPassError(true) : setPassError(false);
+          break;
         }
     }
 
@@ -44881,11 +44883,9 @@ var SignIn = function SignIn(_ref) {
 
   var onSubmitForm = function onSubmitForm(e) {
     e.preventDefault();
-    var data = {
-      email: e.target[0].value,
-      password: e.target[1].valuel
-    };
-    loggingUsers(data).then(function (res) {
+    var email = e.target[0].value;
+    var password = e.target[1].value;
+    loggingUsers(email, password).then(function (res) {
       if (res && res.status == 401) {
         setInvalidData(true);
       } else {
@@ -45652,7 +45652,7 @@ var setFavorite = function setFavorite(omdbId) {
     }).then(function (recent) {
       dispatch(recentFavorite(recent));
     })["catch"](function (err) {
-      return console.log(err);
+      return err;
     });
   };
 };
