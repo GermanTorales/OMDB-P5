@@ -1,49 +1,43 @@
 import React from "react";
 import AlertInputError from "../Commons/AlertInputError";
+import styles from "../../styles/formStyles";
 
 export default ({
   onSubmitForm,
   handlerInput,
   passError,
   emailError,
-  button
+  button,
 }) => {
   return (
-    <div className="col-md-4 mx-auto p-4">
-      <form onSubmit={onSubmitForm}>
-        <div className="form-group">
-          <label>Email address</label>
-          <input
+    <styles.Container>
+      <styles.Form onSubmit={onSubmitForm}>
+        <styles.Field>
+          <styles.Label>Email address</styles.Label>
+          <styles.Input
             type="email"
             name="email"
-            className="form-control"
-            aria-describedby="emailHelp"
             placeholder="Enter email"
-            onChange={handlerInput}
+            onBlur={handlerInput}
           />
           {emailError ? <AlertInputError msg={"Email invalid"} /> : null}
-        </div>
-        <div className="form-group">
-          <label>Password</label>
-          <input
+        </styles.Field>
+        <styles.Field>
+          <styles.Label>Password</styles.Label>
+          <styles.Input
             type="password"
             name="password"
-            className="form-control"
             placeholder="Password"
-            onChange={handlerInput}
+            onBlur={handlerInput}
           />
           {passError ? <AlertInputError msg={"Password invalid"} /> : null}
-        </div>
-        <div className="from-group">
-          <button
-            disabled={button}
-            type="submit"
-            className="btn btn-outline-primary btn-block"
-          >
+        </styles.Field>
+        <styles.Field>
+          <styles.Button disabled={button} type="submit">
             Sign In
-          </button>
-        </div>
-      </form>
-    </div>
+          </styles.Button>
+        </styles.Field>
+      </styles.Form>
+    </styles.Container>
   );
 };

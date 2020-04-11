@@ -3,7 +3,7 @@ import Poster from "../Commons/Poster";
 import Tr from "./Inside/Tr";
 import Recommended from "./Inside/Recommended";
 import { POSTER_NOT_FOUND } from "../../../utils/constansFiles";
-import styles from "./styles";
+import styles from "../../styles/formStyles";
 
 export default ({ filmSelected }) => (
   <styles.Container>

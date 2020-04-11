@@ -1,8 +1,7 @@
-import React, { useRef } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
 import AlertInputError from "../Commons/AlertInputError";
 import msg from "../../../assets/error-msg/errorInputs";
-import styles from "./styles";
+import styles from "../../styles/formStyles";
 
 export default ({
   onSubmitForm,
@@ -11,7 +10,7 @@ export default ({
   lNameErr,
   emailErr,
   passErr,
-  button
+  button,
 }) => {
   return (
     <styles.Container>

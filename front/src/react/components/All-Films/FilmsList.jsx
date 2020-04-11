@@ -19,7 +19,7 @@ export default ({ films, user, ellipsis }) => {
               )}
               <Link
                 style={{ textDecoration: "none" }}
-                to={`/movie/${e.imdbID}`}
+                to={`/movie/${e.Title}/${e.imdbID}`}
               >
                 <styles.TarjetaTitle>{ellipsis(e.Title)}</styles.TarjetaTitle>
               </Link>

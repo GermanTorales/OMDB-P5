@@ -15,7 +15,7 @@ const Main = ({ user }) => (
     <Switch>
       <Route path="/" exact component={PagePrincipal} />
       <Route path="/search/:title" exact component={FilmsContainer} />
-      <Route path="/movie/:imdbId" exact component={FilmContainer} />
+      <Route path="/movie/:title/:imdbId" exact component={FilmContainer} />
       <Route path="/signup" exact component={SignUp} />
       <Route path="/signin" exact component={SingIn} />
       <Route path="/profile" exact component={ProfileContainer} />
@@ -26,7 +26,7 @@ const Main = ({ user }) => (
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    user: state.user.user
+    user: state.user.user,
   };
 };
 

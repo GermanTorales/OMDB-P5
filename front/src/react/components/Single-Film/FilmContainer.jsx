@@ -9,18 +9,22 @@ const FilmContainer = ({ match, fetchFilm, fetchFilms }) => {
   const [film, setFilm] = useState({ Response: "False" });
   const [recommended, setRecommended] = useState([]);
 
+  const ellipsis = (string) => {
+    return string.length > 14 ? string.substring(0, 14) + "..." : string;
+  };
+
   useEffect(() => {
     fetchFilm(match.params.imdbId).then((film) => setFilm(film));
-    fetchFilms(film.Title).then((recommended) => setRecommended(recommended));
-  }, [setFilm, setRecommended]);
-
-  console.log("RECOMMENDED", recommended);
+    fetchFilms(match.params.title).then((res) =>
+      setRecommended(res.Search.slice(1, 5))
+    );
+  }, [setFilm, setRecommended, match]);
 
   return (
     <div>
       {film.Response == "False" ? <Loading /> : <Film filmSelected={film} />}
       {recommended.length !== 0 ? (
-        <Recommended recommended={recommended} />
+        <Recommended ellipsis={ellipsis} recommended={recommended} />
       ) : (
         <Loading />
       )}

@@ -15,7 +15,7 @@ const SignUp = ({ createUser, history }) => {
   const [emailInUse, setEmailInUse] = useState(false);
   const [button, setButton] = useState(true);
 
-  const handlerInput = e => {
+  const handlerInput = (e) => {
     switch (e.target.name) {
       case "name": {
         validations.isValidName(e.target.value)
@@ -47,14 +47,15 @@ const SignUp = ({ createUser, history }) => {
       : setButton(true);
   };
 
-  const onSubmitForm = e => {
+  const onSubmitForm = (e) => {
     e.preventDefault();
-    const data = {};
-    data.firstName = e.target[0].value;
-    data.lastName = e.target[1].value;
-    data.email = e.target[2].value;
-    data.password = e.target[3].value;
-    createUser(data).then(res => {
+    const data = {
+      firstName: e.target[0].value,
+      lastName: e.target[1].value,
+      email: e.target[2].value,
+      password: e.target[3].value,
+    };
+    createUser(data).then((res) => {
       if (res) {
         setEmailInUse(true);
       } else {
@@ -82,7 +83,7 @@ const SignUp = ({ createUser, history }) => {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
   return {
-    createUser: data => dispatch(createUser(data))
+    createUser: (data) => dispatch(createUser(data)),
   };
 };
 

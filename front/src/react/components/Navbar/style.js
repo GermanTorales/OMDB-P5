@@ -23,7 +23,7 @@ export const Title = styled.h1`
 
 export const ToggleButtons = styled.div`
   width: 15%;
-  padding-right: 25px;
+  margin-right: 25px;
   padding-top: 5px;
 `;
 
@@ -31,7 +31,7 @@ export const NotUser = styled.div`
   width: 100%;
   height: 100%;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 `;
 
 export const Button = styled.div`
