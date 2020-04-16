@@ -8,11 +8,7 @@ En este ejercicio vamos a crear una APP que utilice la API de [OMDB](http://www.
 
 ### APIKEY
 
-Para poder hacer requests vamos a necesitar identificarnos con una **APIKEY**, pueden usar la de P5
-
-> `apikey=20dac387`
-
-De todas formas volvieron a hacer la API gratis por lo que pueden sacar su propia [key](https://www.omdbapi.com/apikey.aspx?__EVENTTARGET=freeAcct&__EVENTARGUMENT=&__LASTFOCUS=&__VIEWSTATE=%2FwEPDwUKLTIwNDY4MTIzNQ9kFgYCAQ9kFgICBw8WAh4HVmlzaWJsZWhkAgIPFgIfAGhkAgMPFgIfAGhkGAEFHl9fQ29udHJvbHNSZXF1aXJlUG9zdEJhY2tLZXlfXxYDBQtwYXRyZW9uQWNjdAUIZnJlZUFjY3QFCGZyZWVBY2N0x0euvR%2FzVv1jLU3mGetH4R3kWtYKWACCaYcfoP1IY8g%3D&__VIEWSTATEGENERATOR=5E550F58&__EVENTVALIDATION=%2FwEdAAU5GG7XylwYou%2BzznFv7FbZmSzhXfnlWWVdWIamVouVTzfZJuQDpLVS6HZFWq5fYpioiDjxFjSdCQfbG0SWduXFd8BcWGH1ot0k0SO7CfuulN6vYN8IikxxqwtGWTciOwQ4e4xie4N992dlfbpyqd1D&at=freeAcct&Email=).
+Para poder hacer requests vamos a necesitar identificarnos con una **APIKEY**
 
 ### Uso
 
@@ -40,7 +36,6 @@ Este query esta definido en su documentación y tiene varias opciones, por ejemp
 
 #### Módulos
 
-Hagan un `fork` de [este repo](https://github.com/atralice/omdb) para trabajar.
 
 Primero que nada este proyecto se divide en dos partes o módulos, el front y el back. Fíjense que ambas carpetas tienen `package.json` distintos, osea que cada uno corre aparte y por ende van a tener que interactuar vía **HTTP**.
 
