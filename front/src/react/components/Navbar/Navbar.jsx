@@ -13,7 +13,7 @@ export default ({ user }) => {
         </Link>
       </Home>
       <ToggleButtons>
-        {user.userId ? <ButtonUserProfile user={user} /> : <ButtonsUser />}
+        {user.name ? <ButtonUserProfile user={user} /> : <ButtonsUser />}
       </ToggleButtons>
     </Nav>
   );

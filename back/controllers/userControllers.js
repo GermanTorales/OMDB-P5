@@ -3,14 +3,24 @@ const { User } = require("../models/index");
 
 userControllers.registerUser = (req, res) => {
   User.create(req.body.data)
-    .then((user) => {
-      res.status(201).send(user);
+    .then(() => {
+      res.sendStatus(201);
     })
     .catch((err) => res.sendStatus(400));
 };
 
 userControllers.loginUser = (req, res) => {
-  res.send(req.user);
+  res.json({
+    name: req.user.firstName + " " + req.user.lastName,
+    email: req.user.email,
+  });
+};
+
+userControllers.isLogin = (req, res) => {
+  res.json({
+    name: req.user.firstName + " " + req.user.lastName,
+    email: req.user.email,
+  });
 };
 
 userControllers.logoutUser = (req, res) => {

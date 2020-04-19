@@ -30,6 +30,13 @@ export const loggingUsers = (email, password) => (dispatch) => {
     .catch((err) => err.response);
 };
 
+export const isLogin = () => (dispatch) => {
+  Axios.get("/auth/islogin")
+    .then((response) => response.data)
+    .then((user) => dispatch(setUser(user)))
+    .catch((err) => err.response);
+};
+
 export const fetchUser = () => (dispatch) => {
   Axios.get("/session")
     .then((res) => res.data)

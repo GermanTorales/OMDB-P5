@@ -22,7 +22,7 @@ export const Title = styled.h1`
 `;
 
 export const ToggleButtons = styled.div`
-  width: 15%;
+  width: auto;
   margin-right: 25px;
   padding-top: 5px;
 `;
@@ -37,11 +37,20 @@ export const NotUser = styled.div`
 export const Button = styled.div`
   width: 100px;
   height: 40px;
-  background: #90a4ae;
   color: #fff;
   display: flex;
   justify-content: center;
   align-items: center;
   font-size: 20px;
   border-radius: 5px;
+`;
+
+export const ButtonUser = styled.div`
+  width: 100%;
+  height: 40px;
+  font-size: 22px;
+  color: #fff;
+  &:hover {
+    border-bottom: 1px solid #fff;
+  }
 `;
